@@ -1,1 +1,1 @@
-# AcademicAssassin
+# ScacARHunt
