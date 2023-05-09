@@ -7,61 +7,48 @@ using UnityEngine.UI;
 public class SceneTransition : MonoBehaviour
 {
     // Variables to hold the previous scene's name and the main menu scene's name
-    private string previousSceneName;
-    private string mainSceneName = "ARPage";
+    private string currentSceneName;
 
     private void Start()
     {
         // Set the previous scene's name to the main menu scene
-        previousSceneName = mainSceneName;
+        currentSceneName = SceneManager.GetActiveScene().name.ToString();
     }
 
     private void Update()
     {
-        // Check for arrow key input and navigate to the appropriate scene
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            if (previousSceneName == mainSceneName)
-            {
-                GoToScene("VictimPage");
-            }
-            else if (previousSceneName == "VictimPage")
-            {
-                GoToScene(mainSceneName);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            if (previousSceneName == mainSceneName)
-            {
-                GoToScene("SuspectPage");
-            }
-            else if (previousSceneName == "SuspectPage")
-            {
-                GoToScene(mainSceneName);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (previousSceneName == mainSceneName)
-            {
-                GoToScene("MapPage");
-            }
-            else if (previousSceneName == "MapPage")
-            {
-                GoToScene(mainSceneName);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (previousSceneName == mainSceneName)
-            {
-                GoToScene("FilterPage");
-            }
-            else if (previousSceneName == "FilterPage")
-            {
-                GoToScene(mainSceneName);
-            }
+        switch (currentSceneName) {
+            case "ARPage":
+                if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+                    GoToScene("VictimPage");
+                } else if (Input.GetKeyDown(KeyCode.RightArrow)) {
+                    GoToScene("SuspectPage");
+                } else if (Input.GetKeyDown(KeyCode.UpArrow)) {
+                    GoToScene("MapPage");
+                } else if (Input.GetKeyDown(KeyCode.DownArrow)) {
+                    GoToScene("FilterPage");
+                }
+                break;
+            case "VictimPage":
+                if (Input.GetKeyDown(KeyCode.RightArrow)) {
+                    GoToScene("ARPage");
+                }
+                break;
+            case "SuspectPage":
+                if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+                    GoToScene("ARPage");
+                }
+                break;
+            case "MapPage":
+                if (Input.GetKeyDown(KeyCode.DownArrow)) {
+                    GoToScene("ARPage");
+                }
+                break;
+            case "FilterPage":
+                if (Input.GetKeyDown(KeyCode.UpArrow)) {
+                    GoToScene("ARPage");
+                }
+                break;
         }
     }
 
@@ -70,6 +57,6 @@ public class SceneTransition : MonoBehaviour
     {
         // Set the current scene to the new scene
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-        previousSceneName = SceneManager.GetActiveScene().name;
+        currentSceneName = SceneManager.GetActiveScene().name.ToString();
     }
 }
