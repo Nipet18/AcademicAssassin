@@ -8,6 +8,8 @@ public class SceneTransition : MonoBehaviour
 {
     // Variables to hold the previous scene's name and the main menu scene's name
     private string currentSceneName;
+    public GameObject arFilters;
+    private bool filtersIsON = false;
 
     private void Start()
     {
@@ -26,7 +28,14 @@ public class SceneTransition : MonoBehaviour
                 } else if (Input.GetKeyDown(KeyCode.UpArrow)) {
                     GoToScene("MapPage");
                 } else if (Input.GetKeyDown(KeyCode.DownArrow)) {
-                    GoToScene("FilterPage");
+                    //GoToScene("FilterPage");
+                    if (!filtersIsON) {
+                        arFilters.SetActive(true);
+                        filtersIsON = true;
+                    } else if (filtersIsON) {
+                        arFilters.SetActive(false);
+                        filtersIsON = false;
+                    }
                 }
                 break;
             case "VictimPage":
